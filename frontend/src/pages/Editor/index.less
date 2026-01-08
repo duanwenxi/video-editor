@@ -1,0 +1,164 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #1d1d1d;
+  overflow: hidden;
+
+  .editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    padding: 0 16px;
+    background: #2a2a2a;
+    border-bottom: 1px solid #363636;
+    flex-shrink: 0;
+
+    .header-left {
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .logo-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 28px;
+          height: 28px;
+          background: linear-gradient(135deg, #0052d9, #0066ff);
+          border-radius: 6px;
+          font-size: 16px;
+          font-weight: 700;
+          color: #fff;
+        }
+
+        .logo-text {
+          font-size: 15px;
+          font-weight: 500;
+          color: #fff;
+        }
+      }
+    }
+
+    .header-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .editor-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      background: #2a2a2a;
+      flex-shrink: 0;
+
+      &.left-sidebar {
+        width: 280px;
+        border-right: 1px solid #363636;
+      }
+
+      &.right-sidebar {
+        width: 300px;
+        border-left: 1px solid #363636;
+
+        .sidebar-header {
+          display: flex;
+          align-items: center;
+          padding: 12px 16px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #fff;
+          border-bottom: 1px solid #363636;
+          flex-shrink: 0;
+        }
+
+        .sidebar-content {
+          flex: 1;
+          overflow-y: auto;
+        }
+      }
+    }
+
+    .main-area {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+
+      .preview-area {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: #1d1d1d;
+        min-height: 0;
+      }
+    }
+  }
+}
+
+// 全局 TDesign 样式覆盖
+:global {
+  .t-button--theme-primary {
+    background: #0052d9;
+    border-color: #0052d9;
+
+    &:hover {
+      background: #0066ff;
+      border-color: #0066ff;
+    }
+  }
+
+  .t-input-number {
+    background: #363636;
+    border-color: #444;
+
+    .t-input {
+      background: transparent;
+      color: #fff;
+    }
+
+    .t-input-number__decrease,
+    .t-input-number__increase {
+      background: #444;
+      color: #bbb;
+      border-color: #444;
+
+      &:hover {
+        background: #555;
+        color: #fff;
+      }
+    }
+  }
+
+  .t-switch {
+    &.t-is-checked {
+      background: #0052d9;
+    }
+  }
+
+  .t-progress {
+    .t-progress__bar {
+      background: #363636;
+    }
+
+    .t-progress__inner {
+      background: #0052d9;
+    }
+  }
+}

@@ -1,0 +1,116 @@
+.overlay-video {
+  position: absolute;
+  cursor: move;
+  z-index: 10;
+  user-select: none;
+  transition: opacity 0.2s;
+
+  &.dragging {
+    cursor: grabbing;
+    opacity: 0.9;
+  }
+
+  &.resizing {
+    cursor: nwse-resize;
+  }
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .overlay-border {
+    position: absolute;
+    inset: 0;
+    border: 2px solid #0052d9;
+    pointer-events: none;
+  }
+
+  .overlay-label {
+    position: absolute;
+    top: -24px;
+    left: 0;
+    background: #0052d9;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px 4px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 28px);
+  }
+
+  .remove-btn {
+    position: absolute;
+    top: -24px;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background: #d54941;
+    border: none;
+    border-radius: 0 4px 0 0;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+
+    &:hover {
+      background: #c9423a;
+    }
+  }
+
+  &:hover .remove-btn {
+    opacity: 1;
+  }
+
+  .resize-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #0052d9;
+    border: 2px solid #fff;
+    border-radius: 2px;
+
+    &.se {
+      bottom: -6px;
+      right: -6px;
+      cursor: nwse-resize;
+    }
+
+    &.sw {
+      bottom: -6px;
+      left: -6px;
+      cursor: nesw-resize;
+    }
+
+    &.ne {
+      top: -6px;
+      right: -6px;
+      cursor: nesw-resize;
+    }
+
+    &.nw {
+      top: -6px;
+      left: -6px;
+      cursor: nwse-resize;
+    }
+  }
+
+  &:hover {
+    .overlay-border {
+      border-color: #3370ff;
+    }
+  }
+}
