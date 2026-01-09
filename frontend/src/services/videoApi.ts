@@ -8,7 +8,7 @@ import type {
   VideoFile
 } from '../types/video';
 
-const API_BASE = 'http://localhost:5001/api';
+const API_BASE = 'http://localhost:5002';
 
 /**
  * 上传视频文件

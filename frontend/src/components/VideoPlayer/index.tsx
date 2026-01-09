@@ -320,9 +320,15 @@ export default function VideoPlayer({
         <video
           ref={videoRef}
           src={video.url}
+          crossOrigin="anonymous"
+          preload="metadata"
           onLoadedMetadata={handleLoadedMetadata}
           onTimeUpdate={handleTimeUpdate}
           onEnded={() => setPlaying(false)}
+          onError={(e) => {
+            console.error('Video load error:', e)
+            console.error('Video src:', video.url)
+          }}
           onClick={togglePlay}
         />
         

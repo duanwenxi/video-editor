@@ -65,15 +65,25 @@ class VideoProcessor:
         if filters:
             cmd.extend(['-vf', ','.join(filters)])
         
-        # 输出编码设置
-        cmd.extend([
-            '-c:v', 'libx264',
-            '-preset', 'medium',
-            '-crf', '23',
-            '-c:a', 'aac',
-            '-b:a', '128k',
-            output_path
-        ])
+        # 输出编码设置 - 尝试复制原始编码，如果有滤镜则使用 mpeg4
+        if filters:
+            # 有滤镜时需要重新编码
+            cmd.extend([
+                '-c:v', 'mpeg4',
+                '-q:v', '5',  # 使用质量模式而非固定码率
+                '-c:a', 'aac',
+                '-b:a', '128k',
+                '-movflags', '+faststart',
+                output_path
+            ])
+        else:
+            # 无滤镜时直接复制流，保持原始编码
+            cmd.extend([
+                '-c:v', 'copy',
+                '-c:a', 'copy',
+                '-movflags', '+faststart',
+                output_path
+            ])
         
         if progress_callback:
             progress_callback(10)
@@ -276,13 +286,14 @@ class VideoProcessor:
         cmd.extend(['-map', '[outv]'])
         cmd.extend(['-map', '0:a?'])  # 保留主视频音频
         
-        # 输出编码设置
+        # 输出编码设置 - 尝试复制原始编码以保持浏览器兼容性
+        # 由于使用了滤镜，需要重新编码，使用 mpeg4
         cmd.extend([
-            '-c:v', 'libx264',
-            '-preset', 'medium',
-            '-crf', '23',
+            '-c:v', 'mpeg4',
+            '-q:v', '5',
             '-c:a', 'aac',
             '-b:a', '128k',
+            '-movflags', '+faststart',
             output_path
         ])
         

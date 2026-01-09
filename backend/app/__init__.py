@@ -4,7 +4,13 @@ import os
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    # 允许所有来源访问,支持凭证,覆盖所有路径
+    CORS(app, 
+         resources={r"/*": {"origins": "*"}},
+         supports_credentials=False,  # origins="*"时不能设置为True
+         allow_headers=["Content-Type", "Authorization", "Range"],
+         expose_headers=["Content-Range", "Accept-Ranges", "Content-Length", "Content-Type"],
+         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
     
     # 配置
     app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'uploads')
@@ -15,14 +21,14 @@ def create_app():
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
     
-    # 注册蓝图
+    # 注册蓝图 - 不使用url_prefix,让路由自己定义完整路径
     from app.routes.upload import upload_bp
     from app.routes.process import process_bp
     from app.routes.extension import extension_bp
     
-    app.register_blueprint(upload_bp, url_prefix='/api')
-    app.register_blueprint(process_bp, url_prefix='/api')
-    app.register_blueprint(extension_bp, url_prefix='/api')
+    app.register_blueprint(upload_bp)
+    app.register_blueprint(process_bp)
+    app.register_blueprint(extension_bp)
     
     # 健康检查
     @app.route('/health', methods=['GET'])

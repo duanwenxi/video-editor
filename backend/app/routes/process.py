@@ -46,7 +46,7 @@ def crop_video():
     if not input_path:
         return jsonify({'error': 'Video not found'}), 404
     
-    # 使用源格式或指定格式
+    # 使用指定格式或源格式
     ext = output_format if output_format else source_ext
     
     # 创建任务
@@ -107,6 +107,7 @@ def overlay_video():
     if not overlay_path:
         return jsonify({'error': 'Overlay video not found'}), 404
     
+    # 使用指定格式或主视频格式
     ext = output_format if output_format else main_ext
     
     # 创建任务
